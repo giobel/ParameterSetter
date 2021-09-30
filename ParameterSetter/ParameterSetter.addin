@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Command">
+    <Assembly>ParameterSetter.dll</Assembly>
+    <AddInId>fc5ddfd2-f0d9-4002-bd6f-371d64e93560</AddInId>
+    <FullClassName>ParameterSetter.MonitorOnIdlingCommand</FullClassName>
+    <VendorId>com.typepad.thebuildingcoder</VendorId>
+    <Text>Command ParameterSetter</Text>
+    <Description>Some description for ParameterSetter</Description>
+    <VisibilityMode>AlwaysVisible</VisibilityMode>
+    <Discipline>Any</Discipline>
+    <LanguageType>Unknown</LanguageType>
+  </AddIn>
+  <AddIn Type="Application">
+    <Name>Parameter Setter Application</Name>
+    <Assembly>ParameterSetter.dll</Assembly>
+    <FullClassName>ParameterSetter.App</FullClassName>
+    <ClientId>b4f41f89-c724-493f-b9ac-cc6755406096</ClientId>
+    <VendorId>com.typepad.thebuildingcoder</VendorId>
+    <VendorDescription>The Building Coder, http://thebuildingcoder.typepad.com</VendorDescription>
+  </AddIn>
+</RevitAddIns>
