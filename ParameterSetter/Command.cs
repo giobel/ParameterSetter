@@ -28,9 +28,13 @@ namespace ParameterSetter
             ViewModel.GetCurrentSelection _exeventHander = new ViewModel.GetCurrentSelection();                        
             ViewModel.PanelEvent.ExEvent = ExternalEvent.Create(_exeventHander);
 
-            ViewModel.SetParameters _setParameters = new ViewModel.SetParameters();
+            Model.SetParameters _setParameters = new Model.SetParameters();
             ViewModel.PanelEvent.ApplyEvent = ExternalEvent.Create(_setParameters);
+
+            Model.UpdateSelection _updateSelection = new Model.UpdateSelection();
+            ViewModel.PanelEvent.UpdateSelection = ExternalEvent.Create(_updateSelection);
             
+
             form = new UserControl1();
             _exeventHander.UIForm = form;
             form.Show();

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ParameterSetter.ViewModel
+namespace ParameterSetter.Model
 {
     class SetParameters : IExternalEventHandler
     {
@@ -23,7 +23,7 @@ namespace ParameterSetter.ViewModel
             using (var t = new Transaction(doc,"Change parameters"))
             {
                 t.Start();
-                foreach (ElementId eid in PanelEvent.SelectedElementsIds)
+                foreach (ElementId eid in ViewModel.PanelEvent.SelectedElementsIds)
                 {
                     Parameter p = doc.GetElement(eid).LookupParameter(myform.paramName.Text);
                     p.Set(myform.paramValue.Text);

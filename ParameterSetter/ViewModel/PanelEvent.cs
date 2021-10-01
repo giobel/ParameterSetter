@@ -16,8 +16,8 @@ namespace ParameterSetter.ViewModel
         public string WindowTitle { get; private set; }
         public static List<ElementId> SelectedElementsIds;
         
-        private RvtElementInfo _selectedRvtCategory;
-        public RvtElementInfo SelectedRvtCategory
+        private Tuple<string, int, List<Model.RvtElementInfo>> _selectedRvtCategory;
+        public Tuple<string, int, List<Model.RvtElementInfo>> SelectedRvtCategory
         {
             get { return _selectedRvtCategory; }
             set { SetField(ref _selectedRvtCategory, value, "Subscribed"); }
@@ -30,9 +30,9 @@ namespace ParameterSetter.ViewModel
             set { SetField(ref _isChecked, value, "IsChecked"); }
         }
 
-
         public ICommand ButtonCommand { get; set; }
         public ICommand ApplyCommand { get; set; }
+        public ICommand UpdateSelectionCommand { get; set; }
 
         private bool _suscribed;
         public bool Subscribed
@@ -42,6 +42,7 @@ namespace ParameterSetter.ViewModel
         }
         public static ExternalEvent ExEvent { get; set; }
         public static ExternalEvent ApplyEvent { get; set; }
+        public static ExternalEvent UpdateSelection { get; set; }
 
         public PanelEvent()
         {
@@ -59,6 +60,7 @@ namespace ParameterSetter.ViewModel
 
             ButtonCommand = new RelayCommand(o => StartStopCommandClick("MainButton"));
             ApplyCommand = new RelayCommand(o => ApplyCommandClick("ApplyCommand"));
+            UpdateSelectionCommand = new RelayCommand(o => UpdateSelectionCommandClick("UpdateSelection"));
 
             WindowTitle = "Panel Title here";
 
@@ -72,6 +74,12 @@ namespace ParameterSetter.ViewModel
             //    }
             //});
 
+        }
+
+        private void UpdateSelectionCommandClick(string v)
+        {
+            Model.UpdateSelection.SelectedRvtCategory = SelectedRvtCategory;
+            UpdateSelection.Raise();
         }
 
         private void ApplyCommandClick(string v)

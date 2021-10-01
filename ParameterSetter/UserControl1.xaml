@@ -24,8 +24,10 @@
                 <TextBox x:Name="paramName" HorizontalAlignment="Left" Height="25" Width="Auto"   TextWrapping="Wrap" Text="Mark" VerticalAlignment="Top" BorderBrush="{x:Null}" TextDecorations="Underline"/>
                 <TextBox x:Name="paramValue" HorizontalAlignment="Left" Height="25" Margin="10,0,0,0" TextWrapping="Wrap" Text="Enter Value Here" VerticalAlignment="Top" Width="Auto" Background="{x:Null}" BorderBrush="{x:Null}" CaretBrush="Black" TextDecorations="{x:Null}"/>
             </StackPanel>
-
-            <Button Margin="36,10" Command="{Binding ApplyCommand}" Content="Apply" Height="30" Width="100" IsEnabled="{Binding Subscribed}"/>
+            <StackPanel Orientation="Horizontal">
+                <Button Margin="0,0,20,0" Command="{Binding UpdateSelectionCommand}" Content="Select" Height="30" Width="100" IsEnabled="{Binding Subscribed}"/>
+                <Button Command="{Binding ApplyCommand}" Content="Apply" Height="30" Width="100" IsEnabled="{Binding Subscribed}"/>
+            </StackPanel>
             <ListBox Name="newLbox" Height="168" SelectedItem="{Binding SelectedRvtCategory}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -35,10 +37,10 @@
                                 <ColumnDefinition Width="120"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <ListBoxItem>
-                                <TextBlock Text="{Binding Info, StringFormat='({0})  '}" HorizontalAlignment="Right">
+                                <TextBlock Text="{Binding Item2, StringFormat='({0})  '}" HorizontalAlignment="Right">
                                 </TextBlock>
                             </ListBoxItem>
-                            <TextBlock Grid.Column="1" Text="{Binding Category}" ></TextBlock>
+                            <TextBlock Grid.Column="1" Text="{Binding Item1}" ></TextBlock>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

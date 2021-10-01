@@ -1,16 +1,11 @@
 ﻿using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using ParameterSetter.Model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
-using System.ComponentModel;
-using System.Windows;
-using System.Windows.Input;
-using System.Collections.ObjectModel;
 
 namespace ParameterSetter.ViewModel
 {
@@ -75,17 +70,16 @@ namespace ParameterSetter.ViewModel
                 selection += $"{item.ToString()},";
                 categories += $"{ele.Category.Name},";
                 PanelEvent.SelectedElementsIds.Add(item);
-                RvtElementInfo fi = new RvtElementInfo(item.ToString(), ele.Category.Name, ele.Id.IntegerValue);
+                RvtElementInfo fi = new RvtElementInfo(item, ele.Category.Name, ele.Id.IntegerValue);
                 fileinfoList.Add(fi);
             }
 
             var query = fileinfoList.GroupBy(item => item.Category);
-            List<RvtElementInfo> newR = new List<RvtElementInfo>();
+            List < Tuple<string, int, List<RvtElementInfo>>> newR = new List<Tuple<string, int, List<RvtElementInfo>>>();
             
             foreach (var result in query)
             {
-                newR.Add(new RvtElementInfo("aaa", result.Key, result.Count()));
-
+                newR.Add(new Tuple<string, int, List<RvtElementInfo>>(result.Key, result.Count(), result.ToList())) ;
                 Debug.WriteLine("\nCategory: " + result.Key);
                 Debug.WriteLine("Count: " + result.Count().ToString());                
             }
@@ -96,7 +90,7 @@ namespace ParameterSetter.ViewModel
                 if (UIForm.OutputLabel.Content.ToString() != categories)
                 {
                     UIForm.OutputLabel.Content = $"{categories}";
-                    UIForm.newLbox.ItemsSource = newR.OrderBy(item => item.Info);                    
+                    UIForm.newLbox.ItemsSource = newR.OrderBy(x=>x.Item1);
                 }
                 if (UIForm.newLbox.SelectedItem != null) {
 
