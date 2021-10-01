@@ -37,7 +37,7 @@ namespace ParameterSetter.ViewModel
                 Debug.Print("**************EventRegisterHandler Unsuscribe************");
                 UIForm.Dispatcher.Invoke(() =>
                 {
-                    UIForm.OutputLabel.Content = $"Addin disabled";
+                    //UIForm.OutputLabel.Content = $"Addin disabled";
                 });                
             }
             else
@@ -49,9 +49,6 @@ namespace ParameterSetter.ViewModel
                 Debug.Print("**************EventRegisterHandler Subscribed************");
             }
         }
-
-        
-        
 
         void SelectionTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
@@ -83,7 +80,7 @@ namespace ParameterSetter.ViewModel
                 Debug.WriteLine("\nCategory: " + result.Key);
                 Debug.WriteLine("Count: " + result.Count().ToString());                
             }
-            Debug.WriteLine("**********");
+            
 
             UIForm.Dispatcher.Invoke(() =>
             {
@@ -104,7 +101,6 @@ namespace ParameterSetter.ViewModel
                 Debug.Print($"selected category: {selectedCategory.Category}");
             }
 
-            
         }
         private ICollection<ElementId> GetSelectedObjects()
         {

@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace ParameterSetter.ViewModel
 {
-    class PanelEvent: INotifyPropertyChanged
+    class PanelEvent: ViewModelBase
     {
         
         public string WindowTitle { get; private set; }
@@ -44,8 +44,19 @@ namespace ParameterSetter.ViewModel
         public static ExternalEvent ApplyEvent { get; set; }
         public static ExternalEvent UpdateSelection { get; set; }
 
+        ObservableCollection<FieldViewModel> _fields;
+        public ObservableCollection<FieldViewModel> Fields
+        {
+            get { return _fields; }
+            set { SetField(ref _fields, value, "Fields"); }            
+        }
         public PanelEvent()
         {
+            _fields = new ObservableCollection<FieldViewModel>();
+            _fields.Add(new FieldViewModel(){Caption = "Mark",InputText = ""});
+            _fields.Add(new FieldViewModel() { Caption = "Comments", InputText = "" });
+            _fields.Add(new FieldViewModel() { Caption = "Level", InputText = "" });
+
             SelectedElementsIds = new List<ElementId>();
             _suscribed = false; 
             if (ExEvent != null)
@@ -106,18 +117,18 @@ namespace ParameterSetter.ViewModel
         }
 
         // boiler-plate for INOtifyPropertyChnged
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        }
-        protected bool SetField<T>(ref T field, T value, string propertyName)
-        {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName);
-            return true;
-        }
+        //public event PropertyChangedEventHandler PropertyChanged;
+        //protected virtual void OnPropertyChanged(string propertyName)
+        //{
+        //    PropertyChangedEventHandler handler = PropertyChanged;
+        //    if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        //}
+        //protected bool SetField<T>(ref T field, T value, string propertyName)
+        //{
+        //    if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+        //    field = value;
+        //    OnPropertyChanged(propertyName);
+        //    return true;
+        //}
     }
 }

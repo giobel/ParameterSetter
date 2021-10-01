@@ -2,7 +2,7 @@
 
 namespace ParameterSetter.Model
 {
-    public class RvtElementInfo : Model.ViewModelBase
+    public class RvtElementInfo : ViewModel.ViewModelBase
     {
         public RvtElementInfo()
         {

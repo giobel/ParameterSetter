@@ -1,4 +1,5 @@
-﻿using Autodesk.Revit.UI;
+﻿using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +19,14 @@ namespace ParameterSetter.Model
 
         public void Execute(UIApplication app)
         {
-            
-            TaskDialog.Show("R", SelectedRvtCategory.Item1);
+            List<ElementId> eids = new List<ElementId>();
+
+            foreach (var item in SelectedRvtCategory.Item3)
+            {
+                eids.Add(item.myElementId);
+            }
+            app.ActiveUIDocument.Selection.SetElementIds(eids);
+            //TaskDialog.Show("R", SelectedRvtCategory.Item1);
         }
 
         public string GetName()

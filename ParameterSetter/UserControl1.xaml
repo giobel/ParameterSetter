@@ -5,46 +5,53 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
             xmlns:vm="clr-namespace:ParameterSetter.ViewModel"
-             Height="374" Width="300" WindowStartupLocation="CenterScreen"
+        xmlns:local="clr-namespace:ParameterSetter"
+        Height="452.666" Width="300" WindowStartupLocation="CenterScreen"
          Title="{Binding WindowTitle}" Topmost="True" WindowStyle="ToolWindow">
     <Window.DataContext>
         <vm:PanelEvent/>
     </Window.DataContext>
 
-    <Grid>
+    <Grid Margin="0,0,0,10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" Height="25" Width="100" Command="{Binding ButtonCommand}" Content="Start/Stop"/>
 
-        <StackPanel Grid.Row="1" IsEnabled="{Binding Subscribed}" Margin="10,13,10,10" Orientation="Vertical" >
-            <Label Content="Nothing selected" x:Name="OutputLabel" Height="30"/>
+        <Button Height="30" Width="100" Command="{Binding ButtonCommand}" Content="Start/Stop"/>
+        <StackPanel Grid.Row="1" IsEnabled="{Binding Subscribed}" Margin="10,13,10,10" Orientation="Vertical" Name="StackPanelParams">
+            <Button Height="30" Width="100" Command="{Binding AddCommand}" Content="Add"/>
+            <Label Content="Nothing selected" x:Name="OutputLabel" Height="0" Visibility="Hidden"/>
             <StackPanel Orientation="Horizontal">
-                <TextBox x:Name="paramName" HorizontalAlignment="Left" Height="25" Width="Auto"   TextWrapping="Wrap" Text="Mark" VerticalAlignment="Top" BorderBrush="{x:Null}" TextDecorations="Underline"/>
-                <TextBox x:Name="paramValue" HorizontalAlignment="Left" Height="25" Margin="10,0,0,0" TextWrapping="Wrap" Text="Enter Value Here" VerticalAlignment="Top" Width="Auto" Background="{x:Null}" BorderBrush="{x:Null}" CaretBrush="Black" TextDecorations="{x:Null}"/>
+                <ItemsControl ItemsSource="{Binding Fields}" Name="myItems">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:InputItemControl />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Button Margin="0,0,20,0" Command="{Binding UpdateSelectionCommand}" Content="Select" Height="30" Width="100" IsEnabled="{Binding Subscribed}"/>
-                <Button Command="{Binding ApplyCommand}" Content="Apply" Height="30" Width="100" IsEnabled="{Binding Subscribed}"/>
-            </StackPanel>
-            <ListBox Name="newLbox" Height="168" SelectedItem="{Binding SelectedRvtCategory}">
+            
+                <Button Command="{Binding ApplyCommand}" Content="Set Parameters" Height="30" Width="100" IsEnabled="{Binding Subscribed}"/>
+            
+            <ListBox Margin="0,10,0,0" Name="newLbox" Height="168" SelectedItem="{Binding SelectedRvtCategory}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid Margin="0,2">
+                        <Grid Margin="0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="30"></ColumnDefinition>
-                                <ColumnDefinition Width="120"></ColumnDefinition>
+                                <ColumnDefinition Width="200"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <ListBoxItem>
-                                <TextBlock Text="{Binding Item2, StringFormat='({0})  '}" HorizontalAlignment="Right">
+                                <TextBlock Text="{Binding Item2, StringFormat='({0})  '}" VerticalAlignment="Center">
                                 </TextBlock>
                             </ListBoxItem>
-                            <TextBlock Grid.Column="1" Text="{Binding Item1}" ></TextBlock>
+                            <TextBlock Grid.Column="1" Text="{Binding Item1}" VerticalAlignment="Center" ></TextBlock>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            <Button Margin="0,10,0,10" Command="{Binding UpdateSelectionCommand}" Content="Select Elements" Height="30" Width="100" IsEnabled="{Binding Subscribed}"/>
         </StackPanel>
     </Grid>
 </Window>
